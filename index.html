@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BookSwap - Troca de Livros Usados</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Cabeçalho */
+    header {
+      background-color: #2c3e50;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav ul li {
+      font-weight: 600;
+    }
+
+    nav ul li a:hover {
+      color: #18bc9c;
+    }
+
+    /* Banner */
+    .banner {
+      background: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+    }
+
+    .banner h1 {
+      font-size: 3rem;
+      background-color: rgba(44, 62, 80, 0.7);
+      padding: 15px 40px;
+      border-radius: 8px;
+    }
+
+    /* Conteúdo principal */
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* Seção livros */
+    .livros-section {
+      margin-bottom: 50px;
+    }
+
+    .livros-section h2 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      border-bottom: 3px solid #18bc9c;
+      padding-bottom: 5px;
+    }
+
+    .livros-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+      gap: 25px;
+    }
+
+    .livro-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .livro-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+    }
+
+    .livro-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+    }
+
+    .livro-info {
+      padding: 15px;
+    }
+
+    .livro-info h3 {
+      margin-bottom: 8px;
+      color: #18bc9c;
+    }
+
+    .livro-info p {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.3;
+    }
+
+    /* Formulário */
+    .form-section {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto 50px;
+    }
+
+    .form-section h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    form input[type="text"],
+    form input[type="url"],
+    form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+    }
+
+    form input[type="text"]:focus,
+    form input[type="url"]:focus,
+    form textarea:focus {
+      border-color: #18bc9c;
+      outline: none;
+    }
+
+    form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    form button {
+      background-color: #18bc9c;
+      color: white;
+      border: none;
+      padding: 15px;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+      background-color: #139f86;
+    }
+
+    /* Rodapé */
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 25px 20px;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Responsividade */
+    @media (max-width: 600px) {
+      .banner h1 {
+        font-size: 2rem;
+        padding: 10px 20px;
+      }
+
+      nav ul {
+        gap: 15px;
+      }
+
+      .livro-img {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">BookSwap</div>
+    <nav>
+      <ul>
+        <li><a href="#livros">Livros</a></li>
+        <li><a href="#cadastro">Cadastrar Livro</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="banner">
+    <h1>Troque seus livros usados com facilidade</h1>
+  </section>
+
+  <main>
+    <section id="livros" class="livros-section">
+      <h2>Livros Disponíveis para Troca</h2>
+      <div class="livros-grid">
+        <article class="livro-card">
+          <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=400&q=80" alt="Dom Casmurro" class="livro-img" />
+          <div class="livro-info">
+            <h3>Dom Casmurro</h3>
+            <p><strong>Autor:</strong> Machado de Assis</p>
+            <p>Livro em bom estado, capa original e algumas páginas amareladas.</p>
+          </div>
+        </article>
+        <article class="livro-card">
+          <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=400&q=80" alt="O Pequeno Príncipe" class="livro-img" />
+          <div class="livro-info">
+            <h3>O Pequeno Príncipe</h3>
+            <p><strong>Autor:</strong> Antoine de Saint-Exupéry</p>
+            <p>Capa intacta e poucas marcas de uso, perfeito para leitura.</p>
+          </div>
+        </article>
+        <article class="livro-card">
+          <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=400&q=80" alt="1984" class="livro-img" />
+          <div class="livro-info">
+            <h3>1984</h3>
+            <p><strong>Autor:</strong> George Orwell</p>
+            <p>Livro usado, sem rasuras e capa preservada.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="cadastro" class="form-section">
+      <h2>Cadastre seu livro para troca</h2>
+      <form>
+        <label for="titulo">Título do Livro:</label>
+        <input type="text" id="titulo" name="titulo" placeholder="Digite o título do livro" required />
+
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" name="autor" placeholder="Digite o nome do autor" required />
+
+        <label for="imagem">URL da Imagem do Livro:</label>
+        <input type="url" id="imagem" name="imagem" placeholder="Cole o link da imagem do livro" />
+
+        <label for="estado">Descrição do estado do livro:</label>
+        <textarea id="estado" name="estado" placeholder="Descreva o estado do livro" required></textarea>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer id="contato">
+    <p>© 2025 BookSwap. Todos os direitos reservados.</p>
+    <p>Contato: contato@bookswap.com.br</p>
+  </footer>
+</body>
+</html>
